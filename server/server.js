@@ -16,6 +16,8 @@ app.get('/subway', apiController.getSubwayInfo, (req, res, next) => {
   res.status(200).send(res.locals.data);
 });
 
+//handles request from frontend
+
 app.get('/', (req, res, next) => {
   console.log(`inside of / route`);
   res.status(200).sendFile(path.resolve(__dirname, '../public/index.html'));

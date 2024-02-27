@@ -10,54 +10,56 @@ const ApiController = {
       response = await fetch(URL, {
         headers: { 'x-api-key': key },
       });
-
+      
       const buffer = await response.arrayBuffer();
       const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(
         new Uint8Array(buffer)
       );
+      
+      console.log(feed)
 
-      const currentTime = Math.floor(Date.now() / 1000);
-      const routes = ["1","2", "3", "4", "5", "6", "7", "A", "C", "E", "B", "D", "F", "M", "G", "L", "N", "Q", "R", "W" ];
-      const data = [];
+      // const currentTime = Math.floor(Date.now() / 1000);
+      // const routes = ["1","2", "3", "4", "5", "6", "7", "A", "C", "E", "B", "D", "F", "M", "G", "L", "N", "Q", "R", "W" ];
+      // const data = [];
 
-      routes.forEach((route) => {
-        const info = [route];
-        const cache = {};
+      // routes.forEach((route) => {
+      //   const info = [route];
+      //   const cache = {};
 
-        feed.entity.forEach((element) => {
-          element.alert.informedEntity.forEach((x) => {
+      //   feed.entity.forEach((element) => {
+      //     element.alert.informedEntity.forEach((x) => {
 
-            if (x.routeId === route) {
-              element.alert.activePeriod.forEach((y) => {
+      //       if (x.routeId === route) {
+      //         element.alert.activePeriod.forEach((y) => {
 
-                if (y.start.low < currentTime) {
-                  if (y.end.low === 0 || y.end.low > currentTime) {
+      //           if (y.start.low < currentTime) {
+      //             if (y.end.low === 0 || y.end.low > currentTime) {
 
-                    const message =
-                      element.alert.headerText.translation[0].text;
-                    const start = new Date(y.start.low * 1000);
-                    const end = new Date(y.end.low * 1000);
+      //               const message =
+      //                 element.alert.headerText.translation[0].text;
+      //               const start = new Date(y.start.low * 1000);
+      //               const end = new Date(y.end.low * 1000);
 
-                    if (!cache[message]) {
-                      const obj = {
-                        message: message,
-                        start: dateString(start),
-                      };
-                      if (y.end.low !== 0) obj.end = dateString(end);
-                      else obj.end = 'Unknown';
-                      info.push(obj);
-                      cache[message] = true;
-                    }
-                  }
-                }
-              });
-            }
-          });
-        });
-        data.push(info);
-      });
+      //               if (!cache[message]) {
+      //                 const obj = {
+      //                   message: message,
+      //                   start: dateString(start),
+      //                 };
+      //                 if (y.end.low !== 0) obj.end = dateString(end);
+      //                 else obj.end = 'Unknown';
+      //                 info.push(obj);
+      //                 cache[message] = true;
+      //               }
+      //             }
+      //           }
+      //         });
+      //       }
+      //     });
+      //   });
+      //   data.push(info);
+      // });
 
-      res.locals.data = data;
+      res.locals.data = feed;
       return next();
       
     } catch {
