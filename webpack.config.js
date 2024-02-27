@@ -5,14 +5,13 @@ module.exports = {
   entry: './src/index.js',
   mode: process.env.NODE_ENV,
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
   target: 'web',
   devServer: {
     static: {
-      publicPath: '/dist',
-      directory: path.resolve(__dirname, 'dist'),
+      directory: path.join(__dirname, 'public'),
     },
 
     hot: true,
