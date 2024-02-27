@@ -1,36 +1,12 @@
 import React from 'react';
-import SubwayLineComponent from '../component/SubwayLineComponent.jsx';
+
 import { useState, useEffect } from 'react';
+import MainContainer from './container/MainContainer.jsx';
+import NavContainer from './container/NavContainer.jsx';
 
 const App = () => {
-  const SubwayContainer = (props) => {
-    const subwayLines = [];
-
-    for (let i = 0; i < props.trainLine.length; i++) {
-      subwayLines.push(
-        <SubwayLineComponent
-          color={props.color[i]}
-          trainLine={props.trainLine[i]}
-          trainStatus={props.trainStatus[i]}
-          start={props.start[i]}
-          end={props.end[i]}
-        />
-      );
-    }
-
-    return (
-      <div className="SubwayContainer">
-        Subway Lines{' '}
-        {/* <SubwayLineComponent
-          bgColor={props.bgColor}
-          trainLine={props.trainLine}
-        /> */}
-        {/* <SubwayLineComponent bgColor={props.bgColor} trainLine={props.trainLine} trainStatus={props.trainStatus}/> */}
-        {subwayLines}
-      </div>
-    );
-  };
-
+ 
+  
   const [trainLine, setTrainLine] = useState([]);
   const [trainStatus, setTrainStatus] = useState([]);
   const [start, setStart] = useState([]);
@@ -78,6 +54,7 @@ const App = () => {
       console.log('error');
     }
   };
+  console.log(trainLine);
 
   const handleClick = () => {
     let filteredTrainLine = [];
@@ -85,26 +62,29 @@ const App = () => {
     let filteredStart = [];
     let filteredEnd = [];
 
-    // for (let i = 0; i < trainLine.length; i++) {
-    //   if (i === 0 || i === 1 || i === 2) {
-    //     filteredTrainLine.push(trainLine[i]);
-    //     filteredTrainStatus.push(trainStatus[i]);
-    //     filteredStart.push(start[i]);
-    //     filteredEnd.push(end[i]);
-    //   } else {
-    //     break;
-    //   }
+    for (let i = 0; i < trainLine.length; i++) {
+      if (
+        trainLine[i] === '1' ||
+        trainLine[i] === '2' ||
+        trainLine[i] === '3'
+      ) {
+        filteredTrainLine.push(trainLine[i]);
+        filteredTrainStatus.push(trainStatus[i]);
+        filteredStart.push(start[i]);
+        filteredEnd.push(end[i]);
+      } else {
+        break;
+      }
 
-    //   console.log(filteredTrainLine)
-    //   console.log(filteredTrainStatus)
-    //   console.log(filteredStart)
-    //   console.log(filteredEnd, 'filteredEnd')
-
-    // }
-    filteredTrainLine = trainLine.slice(0, 3);
-    filteredTrainStatus = trainStatus.slice(0, 3);
-    filteredStart = start.slice(0, 3);
-    filteredEnd = end.slice(0, 3);
+      console.log(filteredTrainLine);
+      console.log(filteredTrainStatus);
+      console.log(filteredStart);
+      console.log(filteredEnd, 'filteredEnd');
+    }
+    // setTrainLine(filteredTrainLine);
+    // setTrainStatus(filteredTrainStatus);
+    // setStart(filteredStart);
+    // setEnd(filteredEnd);
   };
 
   return (
@@ -119,7 +99,7 @@ const App = () => {
       <button>train (L)</button>
       <button>train (N,G,R,W)</button>
 
-      <SubwayContainer
+      <MainContainer
         color={color}
         trainLine={trainLine}
         trainStatus={trainStatus}
