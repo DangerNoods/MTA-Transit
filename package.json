@@ -1,12 +1,13 @@
 {
-  "name": "scratch-project",
+  "name": "mta-tracker",
   "version": "1.0.0",
-  "description": "GoblinSharksMTA",
+  "description": "Get subwat alerts with MTA tracker!",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server & nodemon server/server.js",
-    "build": "webpack ."
+    "start": "cross-env NODE_ENV=production nodemon server/server.js",
+    "build": "cross-env NODE_ENV=production webpack",
+    "dev": "concurrently \"cross-env NODE_ENV=development webpack serve\" \"cross-env NODE_ENV=development nodemon server/server.js\""
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +28,8 @@
   },
   "dependencies": {
     "autoprefixer": "10.4.5",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
     "gtfs-realtime-bindings": "^1.1.1",
     "nodemon": "^3.1.0",
     "react": "^18.2.0",
