@@ -4,7 +4,7 @@ const app = express(); //invoke framework
 
 const apiController = require('./apiController');
 
-const PORT = 8080; 
+const PORT = 3000;
 
 app.use(express.json()); //app.use catches every signal regardless of method (get, patch, put, post, delete) we will parse json (data form between languages)
 
