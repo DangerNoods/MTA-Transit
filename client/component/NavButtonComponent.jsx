@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const NavButtonComponent = ({
   trainGroup,
@@ -12,14 +13,16 @@ const NavButtonComponent = ({
 
   return (
     <>
-      <button
-        name={trainGroup}
-        onClick={handleNavClick}
-        id={buttonNum}
-        className={activeGroup === trainGroup ? 'active' : ''}
-      >
-        {trainGroupStr}
-      </button>
+      <Link to={'/' + trainGroup}>
+        <button
+          name={trainGroup}
+          onClick={handleNavClick}
+          id={buttonNum}
+          className={activeGroup === trainGroup ? 'active' : ''}
+        >
+          {trainGroupStr}
+        </button>
+      </Link>
     </>
   );
 };
