@@ -17,11 +17,16 @@
 * {
   font-family: 'Workbench', sans-serif;
 }
+
+body {
+  margin: 20px 4px;
+}
+
 h1 {
-  color: #2360A5;
+  color: #2360a5;
   margin: 30px;
   /* background-color: bisque; */
-  text-align: center; 
+  text-align: center;
   border-style: solid;
   border-width: 3px;
   border-radius: 20px;
@@ -91,21 +96,20 @@ h1 {
   padding: 5px;
 }
 
-
 /* button styling */
 
-#buttons{
+#buttons {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: 15px;
 }
 
-#button1{
-  border-color: #EE252E;
+#button1 {
+  border-color: #ee252e;
   border-width: 4px;
   border-radius: 100px;
-  margin-right:15px;
-  margin-left:15px;
+  margin-right: 15px;
+  margin-left: 15px;
   height: 100px;
   transition: all 0.2s;
   font-size: 27px;
@@ -113,21 +117,21 @@ h1 {
   background-color: white;
 }
 
-#button1:active{
-  background-color: #EE252E;;
+#button1:active {
+  background-color: #ee252e;
 }
 
 /* #button1:hover{
   transform: translate(8px);
 } */
 
-#button2{
+#button2 {
   border-width: 4px;
-  border-color: #00933C;
+  border-color: #00933c;
   border-width: 4px;
   border-radius: 100px;
-  margin-right:15px;
-  margin-left:15px;
+  margin-right: 15px;
+  margin-left: 15px;
   height: 100px;
   font-size: 27px;
   transition: all 0.2s;
@@ -135,32 +139,32 @@ h1 {
   background-color: white;
 }
 
-#button2:active{
-  background-color: #00933C;
+#button2:active {
+  background-color: #00933c;
 }
-#button3{
-  border-color: #B933AD;
+#button3 {
+  border-color: #b933ad;
   border-width: 4px;
   border-radius: 100px;
-  margin-right:15px;
-  margin-left:15px;
+  margin-right: 15px;
+  margin-left: 15px;
   height: 100px;
   font-size: 27px;
   transition: all 0.2s;
   box-shadow: 0px 4px 2px 0px;
   background-color: white;
 }
-#button3:active{
-  background-color: #B933AD;
+#button3:active {
+  background-color: #b933ad;
 }
 
-#button4{
-  border-color: #0039A6;
+#button4 {
+  border-color: #0039a6;
   border-width: 4px;
   border-radius: 100px;
-  margin-right:15px;
-  margin-left:15px;
-  margin-top:10px;
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-top: 10px;
   height: 100px;
   transition: all 0.2s;
   font-size: 27px;
@@ -168,17 +172,17 @@ h1 {
   background-color: white;
 }
 
-#button4:active{
-  background-color: #0039A6;
+#button4:active {
+  background-color: #0039a6;
 }
 
-#button5{
+#button5 {
   border-color: #ff6319;
   border-width: 4px;
   border-radius: 100px;
-  margin-right:15px;
-  margin-left:15px;
-  margin-top:10px;
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-top: 10px;
   height: 100px;
   transition: all 0.2s;
   font-size: 23px;
@@ -186,17 +190,17 @@ h1 {
   background-color: white;
 }
 
-#button5:active{
+#button5:active {
   background-color: #ff6319;
 }
 
-#button6{
-  border-color: #6CBE45;
+#button6 {
+  border-color: #6cbe45;
   border-width: 4px;
   border-radius: 100px;
-  margin-right:15px;
-  margin-left:15px;
-  margin-top:10px;
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-top: 10px;
   height: 100px;
   transition: all 0.2s;
   font-size: 27px;
@@ -204,18 +208,17 @@ h1 {
   background-color: white;
 }
 
-#button6:active{
-  background-color: #6CBE45;
+#button6:active {
+  background-color: #6cbe45;
 }
 
-
-#button7{
-  border-color: #A7A9AC;
+#button7 {
+  border-color: #a7a9ac;
   border-width: 4px;
   border-radius: 100px;
-  margin-right:15px;
-  margin-left:15px;
-  margin-top:10px;
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-top: 10px;
   height: 100px;
   transition: all 0.2s;
   font-size: 27px;
@@ -223,18 +226,18 @@ h1 {
   background-color: white;
 }
 
-#button7:active{
-  background-color: #A7A9AC;
+#button7:active {
+  background-color: #a7a9ac;
 }
 
-#button8{
-  border-color: #FCCC0A;
+#button8 {
+  border-color: #fccc0a;
   border-width: 4px;
   /* color: black; */
   border-radius: 100px;
-  margin-right:15px;
-  margin-left:15px;
-  margin-top:10px;
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-top: 10px;
   height: 100px;
   transition: all 0.2s;
   font-size: 23px;
@@ -243,20 +246,72 @@ h1 {
   /* grid-column: 3; */
 }
 
-#button8:active{
-  background-color: #FCCC0A;
+#button8:active {
+  background-color: #fccc0a;
 }
 
-#clearButton{
-  background-color: #A7A9AC;
+#clearButton {
+  background-color: #a7a9ac;
   color: black;
   border-radius: 100px;
-  margin-right:15px;
-  margin-left:15px;
-  margin-top:10px;
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-top: 10px;
   height: 100px;
   transition: all 0.2s;
   font-size: 23px;
   box-shadow: 0px 4px 2px 0px;
   /* grid-column: 2; */
+}
+
+/* Train Group Container Styling */
+.line-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.mta-line-btn {
+  font-size: 28px;
+  border: none;
+  color: white;
+  padding: 8px;
+  text-align: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+
+#group-123 {
+  background-color: #ee252e;
+}
+
+#group-456 {
+  background-color: #00933c;
+}
+
+#group-7 {
+  background-color: #b933ad;
+}
+
+#group-ACE {
+  background-color: #0039a6;
+}
+
+#group-BDFM {
+  background-color: #ff6319;
+}
+
+#group-G {
+  background-color: #6cbe45;
+}
+
+#group-L {
+  background-color: #a7a9ac;
+}
+
+#group-NQRW {
+  color: black;
+  background-color: #fccc0a;
 }
