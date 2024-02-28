@@ -110,6 +110,7 @@ h1 {
   transition: all 0.2s;
   font-size: 27px;
   box-shadow: 0px 4px 2px 0px;
+  background-color: white;
 }
 
 #button1:active{
@@ -131,6 +132,7 @@ h1 {
   font-size: 27px;
   transition: all 0.2s;
   box-shadow: 0px 4px 2px 0px;
+  background-color: white;
 }
 
 #button2:active{
@@ -146,6 +148,7 @@ h1 {
   font-size: 27px;
   transition: all 0.2s;
   box-shadow: 0px 4px 2px 0px;
+  background-color: white;
 }
 #button3:active{
   background-color: #B933AD;
@@ -162,6 +165,7 @@ h1 {
   transition: all 0.2s;
   font-size: 27px;
   box-shadow: 0px 4px 2px 0px;
+  background-color: white;
 }
 
 #button4:active{
@@ -179,6 +183,7 @@ h1 {
   transition: all 0.2s;
   font-size: 23px;
   box-shadow: 0px 4px 2px 0px;
+  background-color: white;
 }
 
 #button5:active{
@@ -196,6 +201,7 @@ h1 {
   transition: all 0.2s;
   font-size: 27px;
   box-shadow: 0px 4px 2px 0px;
+  background-color: white;
 }
 
 #button6:active{
@@ -214,6 +220,7 @@ h1 {
   transition: all 0.2s;
   font-size: 27px;
   box-shadow: 0px 4px 2px 0px;
+  background-color: white;
 }
 
 #button7:active{
@@ -232,6 +239,7 @@ h1 {
   transition: all 0.2s;
   font-size: 23px;
   box-shadow: 0px 4px 2px 0px;
+  background-color: white;
   /* grid-column: 3; */
 }
 
