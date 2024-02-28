@@ -17,49 +17,63 @@ const ApiController = {
       );
 
       const currentTime = Math.floor(Date.now() / 1000);
-      const routes = ["1","2", "3", "4", "5", "6", "7", "A", "C", "E", "B", "D", "F", "M", "G", "L", "N", "Q", "R", "W" ];
+      const routes = [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        'A',
+        'C',
+        'E',
+        'B',
+        'D',
+        'F',
+        'M',
+        'G',
+        'L',
+        'N',
+        'Q',
+        'R',
+        'W',
+      ];
       const data = [];
 
       routes.forEach((route) => {
         const info = [route];
-        const cache = {};
 
         feed.entity.forEach((element) => {
-          element.alert.informedEntity.forEach((x) => {
+          const errMsg = {
+            message: element.alert.headerText.translation[0].text,
+            start: '',
+            end: '',
+          };
+          element.alert.activePeriod.forEach((y) => {
+            if (y.start.low < currentTime) {
+              if (y.end.low === 0 || y.end.low > currentTime) {
+                errMsg.start = dateString(new Date(y.start.low * 1000));
 
-            if (x.routeId === route) {
-              element.alert.activePeriod.forEach((y) => {
-
-                if (y.start.low < currentTime) {
-                  if (y.end.low === 0 || y.end.low > currentTime) {
-
-                    const message =
-                      element.alert.headerText.translation[0].text;
-                    const start = new Date(y.start.low * 1000);
-                    const end = new Date(y.end.low * 1000);
-
-                    if (!cache[message]) {
-                      const obj = {
-                        message: message,
-                        start: dateString(start),
-                      };
-                      if (y.end.low !== 0) obj.end = dateString(end);
-                      else obj.end = 'Unknown';
-                      info.push(obj);
-                      cache[message] = true;
-                    }
-                  }
-                }
-              });
+                if (y.end.low !== 0)
+                  errMsg.end = dateString(new Date(y.end.low * 1000));
+                else errMsg.end = 'Unknown';
+              }
             }
+            element.alert.informedEntity.forEach((x) => {
+              for (let i = 0; i < routes.length; i++) {
+                if (x.routeId === routes[i]) {
+                  data.push(errMsg);
+                }
+              }
+            });
           });
         });
         data.push(info);
       });
 
-      res.locals.data = data;
+      res.locals.data = feed;
       return next();
-      
     } catch {
       return next((error) => console.log(`Error fetching data`, error));
     }
