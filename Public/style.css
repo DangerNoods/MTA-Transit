@@ -91,6 +91,41 @@ h1 {
   padding: 5px;
 }
 
+/* accessiblity styling */
+
+.accessibilityTotalComponent{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  border-style: solid;
+  background-color: lightblue;
+}
+
+.station{
+  grid-column: 1;
+  align-items: center; /* Center vertically */
+  border-style: solid;
+}
+
+.trainNo{
+  grid-column: 2;
+  grid-row: 1
+}
+
+.outageDates{
+  grid-column: 2;
+  grid-row: 2
+}
+
+.estimatedReturntoService{
+  grid-column: 2;
+  grid-row: 3
+}
+
+.ADA{
+  grid-column: 2;
+  grid-row: 4
+}
 
 /* button styling */
 
@@ -247,7 +282,7 @@ h1 {
   background-color: #FCCC0A;
 }
 
-#clearButton{
+#accessibilityButton{
   background-color: #A7A9AC;
   color: black;
   border-radius: 100px;
