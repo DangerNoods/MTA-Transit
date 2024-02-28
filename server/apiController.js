@@ -5,16 +5,16 @@ const { DOMParser } = require('xmldom')
 // const { JSDOM } = require("jsdom");
 
 const URL =
-  "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/camsys%2Fsubway-alerts";
+  'https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/camsys%2Fsubway-alerts';
 const URL2 =
-  "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fnyct_ene.xml";
-const key = "IWddVccjk6aIOEuV87rGV8p2551sWLzI3y6O65yu";
+  'https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fnyct_ene.xml';
+const key = 'IWddVccjk6aIOEuV87rGV8p2551sWLzI3y6O65yu';
 
 const ApiController = {
   getAccInfo(req, res, next) {
     
     fetch(URL2, {
-      headers: { "x-api-key": key },
+      headers: { 'x-api-key': key },
     })
       .then((response) => response.text())
       .then((response) => {
@@ -53,7 +53,7 @@ const ApiController = {
   async getSubwayInfo(req, res, next) {
     try {
       response = await fetch(URL, {
-        headers: { "x-api-key": key },
+        headers: { 'x-api-key': key },
       });
 
       const buffer = await response.arrayBuffer();
@@ -62,68 +62,103 @@ const ApiController = {
       );
 
       const currentTime = Math.floor(Date.now() / 1000);
+      const routesIndex = {
+        1: 0,
+        2: 1,
+        3: 2,
+        4: 3,
+        5: 4,
+        6: 5,
+        7: 6,
+        A: 7,
+        C: 8,
+        E: 9,
+        B: 10,
+        D: 11,
+        F: 12,
+        M: 13,
+        G: 14,
+        L: 15,
+        N: 16,
+        Q: 17,
+        R: 18,
+        W: 19,
+      };
       const routes = [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "A",
-        "C",
-        "E",
-        "B",
-        "D",
-        "F",
-        "M",
-        "G",
-        "L",
-        "N",
-        "Q",
-        "R",
-        "W",
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        'A',
+        'C',
+        'E',
+        'B',
+        'D',
+        'F',
+        'M',
+        'G',
+        'L',
+        'N',
+        'Q',
+        'R',
+        'W',
       ];
-      const data = [];
 
-      routes.forEach((route) => {
-        const info = [route];
-        const cache = {};
+      const data = routes.map((el) => [el]);
 
-        feed.entity.forEach((element) => {
-          element.alert.informedEntity.forEach((x) => {
-            if (x.routeId === route) {
-              element.alert.activePeriod.forEach((y) => {
-                if (y.start.low < currentTime) {
-                  if (y.end.low === 0 || y.end.low > currentTime) {
-                    const message =
-                      element.alert.headerText.translation[0].text;
-                    const start = new Date(y.start.low * 1000);
-                    const end = new Date(y.end.low * 1000);
+      const alertsArr = [];
+      for (let i = 0; i < feed.entity.length; i++) {
+        if (feed.entity[i].alert.informedEntity[0].routeId)
+          alertsArr.push(feed.entity[i].alert);
+      }
 
-                    if (!cache[message]) {
-                      const obj = {
-                        message: message,
-                        start: dateString(start),
-                      };
-                      if (y.end.low !== 0) obj.end = dateString(end);
-                      else obj.end = "Unknown";
-                      info.push(obj);
-                      cache[message] = true;
-                    }
-                  }
-                }
-              });
-            }
-          });
-        });
-        data.push(info);
-      });
+      for (let j = 0; j < alertsArr.length; j++) {
+        const alertObj = {
+          message: alertsArr[j].headerText.translation[0].text,
+          start: '',
+          end: '',
+        };
 
+        const firstStartTime = alertsArr[j].activePeriod[0].start.low;
+        firstStartTime !== 0 && firstStartTime < currentTime
+          ? (alertObj.start += dateString(
+              new Date(alertsArr[j].activePeriod[0].start.low * 1000)
+            ))
+          : (alertObj.start += 'Unknown');
+
+        const lastEndTime =
+          alertsArr[j]?.activePeriod[alertsArr[j].activePeriod.length - 1]?.end
+            .low;
+
+        lastEndTime !== 0 && lastEndTime > currentTime
+          ? (alertObj.end += dateString(
+              new Date(
+                alertsArr[j]?.activePeriod[alertsArr[j].activePeriod.length - 1]
+                  ?.end.low * 1000
+              )
+            ))
+          : lastEndTime === 0
+          ? (alertObj.end += 'Unknown')
+          : alertObj.end;
+
+        for (let k = 0; k < alertsArr[j].informedEntity.length; k++) {
+          if (data[routesIndex[alertsArr[j].informedEntity[k].routeId]])
+            data[routesIndex[alertsArr[j].informedEntity[k].routeId]].push(
+              alertObj
+            );
+        }
+      }
       res.locals.data = data;
       return next();
-    } catch {
-      return next((error) => console.log(`Error fetching data`, error));
+    } catch (err) {
+      return next({
+        log: 'Express error handler caught getSubwayInfo error:' + err,
+        status: 500,
+        message: { err: 'An error occurred' },
+      });
     }
   },
 };
@@ -145,8 +180,8 @@ function dateString(date) {
   if (minutes < 10) string += `0${minutes}`;
   else string += `${minutes}`;
 
-  if (pm) string += " PM";
-  else string += " AM";
+  if (pm) string += ' PM';
+  else string += ' AM';
 
   return string;
 }
