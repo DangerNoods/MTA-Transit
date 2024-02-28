@@ -18,7 +18,7 @@ app.get('/subway', apiController.getSubwayInfo, (req, res) => {
 
 //handles request to get accessiblity XML.
 app.get ('/accessibility', apiController.getAccInfo, (req, res) => {
-  console.log('insdie of /accessiblity route')
+  console.log('inside of /accessiblity route')
   res.status(200).send(res.locals.data)
 })
 
@@ -38,7 +38,7 @@ app.use('*', (req, res) => {
 //Global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
-    log: 'Express error handler caught unknown middleware error',
+    log: 'Global Error Handler',
     status: 500,
     message: { err: 'An error occurred' },
   };

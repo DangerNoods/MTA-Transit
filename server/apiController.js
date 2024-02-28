@@ -1,5 +1,8 @@
-const { text } = require('body-parser');
-const GtfsRealtimeBindings = require('gtfs-realtime-bindings');
+const { text } = require("body-parser");
+const GtfsRealtimeBindings = require("gtfs-realtime-bindings");
+// var parseString = require('xml2js').parseString
+const { DOMParser } = require('xmldom')
+// const { JSDOM } = require("jsdom");
 
 const URL =
   'https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/camsys%2Fsubway-alerts';
@@ -9,29 +12,42 @@ const key = 'IWddVccjk6aIOEuV87rGV8p2551sWLzI3y6O65yu';
 
 const ApiController = {
   getAccInfo(req, res, next) {
+    
     fetch(URL2, {
       headers: { 'x-api-key': key },
     })
+      .then((response) => response.text())
       .then((response) => {
-        return response.text();
-      })
-      .then((response) => {
-        //DOM parser
-        console.log('Second then res ', response);
-        const parser = new DOMParser(); //parsing data to new Dom
-        const doc = parser.parseFromString(response, 'text/xml');
+        //Parsing Data
+        const parser = new DOMParser(); 
+        const data = parser.parseFromString(response, "text/xml")
 
-        //navigate and query this document using standard DOM methods
+        //creating an array of element tags. Outage -> (station, trainNo, outageDates, ADA). All buried in firstChild.data
+        const outages = Array.from(data.getElementsByTagName("outage")).map((outageElement) => {
+          return {
+            station: outageElement.getElementsByTagName("station")[0].firstChild.data,
+            trainno: outageElement.getElementsByTagName("trainno")[0].firstChild.data,
+            outageDates: outageElement.getElementsByTagName("outagedate")[0].firstChild.data,
+            estimatedreturntoservice: outageElement.getElementsByTagName("estimatedreturntoservice")[0].firstChild.data,
+            ADA: outageElement.getElementsByTagName("ADA")[0].firstChild.data
+          };
+      });
+
+        //testing console logs
+        // const outage = Array.from(data.getElementsByTagName('station')).map(element => element.firstChild.data) 
+        // console.log(data.getElementsByTagName('outage')[0])
+        res.locals.data = outages;
 
         return next();
       })
-      .catch((err) =>
-        next({
-          log: 'Express error handler caught accessibility error',
+      .catch((err) => {
+        console.log("this is the error", err);
+        return next({
+          log: "Express error handler caught accessibility error",
           status: 500,
-          message: { err: 'An error occurred' },
-        })
-      );
+          message: { err: "An error occurred" },
+        });
+      });
   },
 
   async getSubwayInfo(req, res, next) {
