@@ -1,33 +1,187 @@
-import React from "react";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import SubwayLineComponent from '../component/SubwayLineComponent.jsx';
+import NavButtonComponent from '../component/NavButtonComponent.jsx';
+import LineButtonComponent from '../component/LineButtonComponent.jsx';
 
-import SubwayLineComponent from "../component/SubwayLineComponent.jsx";
+const MainContainer = () => {
+  // [
 
-const MainContainer = (props) => {
-    const subwayLines = [];
+  //   {
+  //     group: '1,2,3',
+  //     alerts: [],
+  //   },
+  // {
+  //     group: '1,2,3',
+  //     alerts: [],
+  //   }
+  // ];
+  const [trainGroups, setTrainGroups] = useState([
+    { group: '123', alerts: [] },
+    { group: '456', alerts: [] },
+    { group: '7', alerts: [] },
+    { group: 'ACE', alerts: [] },
+    { group: 'BDFM', alerts: [] },
+    { group: 'G', alerts: [] },
+    { group: 'L', alerts: [] },
+    { group: 'NQRW', alerts: [] },
+  ]);
+  const [activeGroup, setActiveGroup] = useState('');
+  //   const [color, setColor] = useState([]);
 
-    for (let i = 0; i < props.trainLine.length; i++) {
-      subwayLines.push(
-        <SubwayLineComponent
-          color={props.color[i]}
-          trainLine={props.trainLine[i]}
-          trainStatus={props.trainStatus[i]}
-          start={props.start[i]}
-          end={props.end[i]}
-        />
-      );
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('/subway');
+      const result = await response.json();
+
+      //   const bgColor = [];
+
+      for (let i = 0; i < result.length; i++) {
+        const element = result[i];
+
+        const group = [...trainGroups];
+
+        if (element[0] === '1' || element[0] === '2' || element[0] === '3') {
+          group[0].alerts.push(element);
+        } else if (
+          element[0] === '4' ||
+          element[0] === '5' ||
+          element[0] === '6'
+        ) {
+          group[1].alerts.push(element);
+        } else if (element[0] === '7') {
+          group[2].alerts.push(element);
+        } else if (
+          element[0] === 'A' ||
+          element[0] === 'C' ||
+          element[0] === 'E'
+        ) {
+          group[3].alerts.push(element);
+        } else if (
+          element[0] === 'B' ||
+          element[0] === 'D' ||
+          element[0] === 'F' ||
+          element[0] === 'M'
+        ) {
+          group[4].alerts.push(element);
+        } else if (element[0] === 'G') {
+          group[5].alerts.push(element);
+        } else if (element[0] === 'L') {
+          group[6].alerts.push(element);
+        } else if (
+          element[0] === 'N' ||
+          element[0] === 'Q' ||
+          element[0] === 'R' ||
+          element[0] === 'W'
+        ) {
+          group[7].alerts.push(element);
+        }
+        setTrainGroups(group);
+      }
+      console.log(trainGroups, 'groups');
+
+      //   setColor(bgColor);
+    } catch (error) {
+      console.log('error');
+    }
+  };
+  //   console.log(trainLine);
+
+  //   const handleClick = () => {
+  //     let filteredTrainLine = [];
+  //     let filteredTrainStatus = [];
+  //     let filteredStart = [];
+  //     let filteredEnd = [];
+
+  //     for (let i = 0; i < trainLine.length; i++) {
+  //       if (
+  //         trainLine[i] === '1' ||
+  //         trainLine[i] === '2' ||
+  //         trainLine[i] === '3'
+  //       ) {
+  //         filteredTrainLine.push(trainLine[i]);
+  //         filteredTrainStatus.push(trainStatus[i]);
+  //         filteredStart.push(start[i]);
+  //         filteredEnd.push(end[i]);
+  //       } else {
+  //         break;
+  //       }
+
+  //       console.log(filteredTrainLine);
+  //       console.log(filteredTrainStatus);
+  //       console.log(filteredStart);
+  //       console.log(filteredEnd, 'filteredEnd');
+  //     }
+  //   };
+
+  const handleNavClick = (e) => {
+    setActiveGroup(e.target.name);
+  };
+
+  const trainGroupsArr = ['123', '456', '7', 'ACE', 'BDFM', 'G', 'L', 'NGRW'];
+  const navButtonsArr = [];
+
+  for (let i = 0; i < trainGroupsArr.length; i++) {
+    navButtonsArr.push(
+      <NavButtonComponent
+        trainGroup={trainGroupsArr[i]}
+        handleNavClick={handleNavClick}
+        activeGroup={activeGroup}
+      />
+    );
+  }
+
+  const subwayLines = [];
+
+  for (let i = 0; i < trainGroups.length; i++) {
+    const element = trainGroups[i];
+    console.log(element, 'element');
+    const group = element.alerts
+ 
+    for (let j =0; j< group.length; j++) {
+        console.log(group[j], 'group')
+        subwayLines.push(
+                 
+                <SubwayLineComponent  />
+                );
+
     }
 
-    return (
-      <div className="SubwayContainer">
-        Subway Lines{' '}
-        {/* <SubwayLineComponent
-          bgColor={props.bgColor}
-          trainLine={props.trainLine}
-        /> */}
-        {/* <SubwayLineComponent bgColor={props.bgColor} trainLine={props.trainLine} trainStatus={props.trainStatus}/> */}
-        {subwayLines}
-      </div>
-    );
-}
+    // for (let j = 0; j < element.length; j++) {
+    //   const eachTrain = element[j]
+    //   console.log(eachTrain, 'eachTrain');
+      // subwayLines.push(
+      //     //   <SubwayLineComponent
+      //     //     trainLine={trainLine[i]}
+      //     //     trainStatus={trainStatus[i]}
+      //     //     start={start[i]}
+      //     //     end={end[i]}
+      //     //   />
+      //     <SubwayLineComponent  />
+      //     );
+   
+  }
 
-export default MainContainer
+  return (
+    <div className="SubwayContainer">
+      Subway Lines
+      {navButtonsArr}
+      <h1>Subway Alerts</h1>
+      {/* <button onClick={handleClick()}>train (1,2,3)</button>
+      <button>train(4,5,6)</button>
+      <button>train 7</button>
+      <button>train (A,C,E)</button>
+      <button>train (B,D,F,M)</button>
+      <button>train (G)</button>
+      <button>train (L)</button>
+      <button>train (N,G,R,W)</button> */}
+      {subwayLines}
+    </div>
+  );
+};
+
+export default MainContainer;
