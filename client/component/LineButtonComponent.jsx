@@ -1,8 +1,7 @@
-import React from "react";
+import React from 'react';
 
+const LineButtonComponent = ({ line }) => {
+  return <button>{line}</button>;
+};
 
-const LineButtonComponent = () => {
-    return 
-}
-
-export default LineButtonComponent
+export default LineButtonComponent;

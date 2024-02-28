@@ -26,9 +26,9 @@ const ApiController = {
         const outages = Array.from(data.getElementsByTagName("outage")).map((outageElement) => {
           return {
             station: outageElement.getElementsByTagName("station")[0].firstChild.data,
-            trainno: outageElement.getElementsByTagName("trainno")[0].firstChild.data,
+            trainNo: outageElement.getElementsByTagName("trainno")[0].firstChild.data,
             outageDates: outageElement.getElementsByTagName("outagedate")[0].firstChild.data,
-            estimatedreturntoservice: outageElement.getElementsByTagName("estimatedreturntoservice")[0].firstChild.data,
+            estimatedReturntoService: outageElement.getElementsByTagName("estimatedreturntoservice")[0].firstChild.data,
             ADA: outageElement.getElementsByTagName("ADA")[0].firstChild.data
           };
       });
