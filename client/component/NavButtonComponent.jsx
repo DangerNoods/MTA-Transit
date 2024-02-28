@@ -1,8 +1,14 @@
-import React from "react";
+import React from 'react';
 
+const NavButtonComponent = ({ trainGroup, handleNavClick, activeGroup }) => {
+  const trainGroupStr = trainGroup.split('').join(' ');
+  return (
+    <>
+      <button name={trainGroup} onClick={handleNavClick} className={activeGroup === trainGroup? 'active' : ''}>
+        Train {trainGroupStr}
+      </button>
+    </>
+  );
+};
 
-const NavButtonContainer = () => {
-    return 
-}
-
-export default NavButtonContainer
+export default NavButtonComponent;
