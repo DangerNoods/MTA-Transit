@@ -41,7 +41,6 @@ const MainContainer = () => {
       <div>Subway Lines</div>
       <div id="buttons">
         {navButtonsArr}
-        <button id="clearButton">Clear</button>
       </div>
     </div>
   );

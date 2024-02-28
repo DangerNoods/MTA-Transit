@@ -1,12 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, Routes, Route} from 'react-router-dom';
 
 import SubwayLineComponent from '../component/SubwayLineComponent.jsx';
 import LineButtonComponent from '../component/LineButtonComponent.jsx';
 
 const TrainGroupContainer = () => {
   const { currTrainGroup } = useParams();
+  console.log(typeof currTrainGroup, 'current group')
 
   const [trainGroups, setTrainGroups] = useState([
     { group: '123', alerts: [] },
@@ -90,6 +91,8 @@ const TrainGroupContainer = () => {
         const index = alertelement[0];
 
         const eachalert = alertelement[k];
+        if (currTrainGroup.includes(index)) {
+       
 
         subwayLines.push(
           <SubwayLineComponent
@@ -99,6 +102,7 @@ const TrainGroupContainer = () => {
             end={eachalert.end}
           />
         );
+        }
       }
     }
   }
@@ -106,14 +110,40 @@ const TrainGroupContainer = () => {
   // creating LineButtonComponents
   const lineButtonCompArr = [];
 
+
   for (let i = 0; i < currTrainGroup.split('').length; i++) {
-    lineButtonCompArr.push(<LineButtonComponent line={currTrainGroup[i]} />);
+    console.log(currTrainGroup[i], 'currentTrain')
+    
+    lineButtonCompArr.push(<Link to={'/'+ currTrainGroup[i]}><LineButtonComponent line={currTrainGroup[i]} /></Link>);
+     
+     
+
+
+  // for (let i =0; i< subwaylines.length; i++){
+  //   if (subwaylines[i].props.line === line){
+  //    console.log(specLine)
+  //     specLine.push(
+  //       <SubwayLineComponent 
+  //       line={subwaylines[i].props.line}
+  //       alerts={subwaylines[i].props.alerts}
+  //       start={subwaylines[i].props.start}
+  //       end={subwaylines[i].props.end}
+  //     />)
+  //   }
+     
+  // }
   }
 
   return (
     <>
       <div>{lineButtonCompArr}</div>
+   
+      
+      <Link to={'/'}><button>Back</button></Link>
       <div>{subwayLines}</div>
+      <div>
+      
+      </div>
     </>
   );
 };

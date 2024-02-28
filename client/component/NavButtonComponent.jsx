@@ -18,7 +18,7 @@ const NavButtonComponent = ({
           name={trainGroup}
           onClick={handleNavClick}
           id={buttonNum}
-          className={activeGroup === trainGroup ? 'active' : ''}
+        //   className={activeGroup === trainGroup ? 'active' : ''}
         >
           {trainGroupStr}
         </button>
