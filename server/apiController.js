@@ -107,7 +107,7 @@ const ApiController = {
         };
 
         const firstStartTime = alertsArr[j].activePeriod[0].start.low;
-        firstStartTime !== 0 && firstStartTime < currentTime
+        firstStartTime !== 0
           ? (alertObj.start += dateString(
               new Date(alertsArr[j].activePeriod[0].start.low * 1000)
             ))
