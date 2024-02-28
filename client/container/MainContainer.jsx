@@ -82,7 +82,6 @@ const MainContainer = () => {
         }
         setTrainGroups(group);
       }
-      console.log(trainGroups, 'groups');
 
       //   setColor(bgColor);
     } catch (error) {
@@ -120,15 +119,26 @@ const MainContainer = () => {
 
   const handleNavClick = (e) => {
     setActiveGroup(e.target.name);
+    
   };
+  console.log(activeGroup);
 
   const trainGroupsArr = ['123', '456', '7', 'ACE', 'BDFM', 'G', 'L', 'NQRW'];
   const navButtonsArr = [];
-  const buttonNumArr = ["button1","button2","button3","button4","button5","button6","button7","button8"];
+  const buttonNumArr = [
+    'button1',
+    'button2',
+    'button3',
+    'button4',
+    'button5',
+    'button6',
+    'button7',
+    'button8',
+  ];
 
   for (let i = 0; i < trainGroupsArr.length; i++) {
     navButtonsArr.push(
-      <NavButtonComponent 
+      <NavButtonComponent
         trainGroup={trainGroupsArr[i]}
         handleNavClick={handleNavClick}
         activeGroup={activeGroup}
@@ -137,46 +147,43 @@ const MainContainer = () => {
     );
   }
 
-  console.log("lines =" + navButtonsArr)
+  //   console.log("lines =" + navButtonsArr)
 
   const subwayLines = [];
-
+  //going through the trainGroups array
   for (let i = 0; i < trainGroups.length; i++) {
     const element = trainGroups[i];
-    console.log(element, 'element');
-    const group = element.alerts
- 
-    for (let j =0; j< group.length; j++) {
-        console.log(group[j], 'group')
+
+    const group = element.alerts;
+
+    //going through each group alerts
+    for (let j = 0; j < group.length; j++) {
+      const alertelement = group[j];
+
+      for (let k = 1; k < alertelement.length; k++) {
+        const index = alertelement[0];
+
+        const eachalert = alertelement[k];
+
         subwayLines.push(
-                 
-                <SubwayLineComponent  />
-                );
-
+          <SubwayLineComponent
+            line={index}
+            alerts={eachalert.message}
+            start={eachalert.start}
+            end={eachalert.end}
+          />
+        );
+      }
     }
-
-    // for (let j = 0; j < element.length; j++) {
-    //   const eachTrain = element[j]
-    //   console.log(eachTrain, 'eachTrain');
-      // subwayLines.push(
-      //     //   <SubwayLineComponent
-      //     //     trainLine={trainLine[i]}
-      //     //     trainStatus={trainStatus[i]}
-      //     //     start={start[i]}
-      //     //     end={end[i]}
-      //     //   />
-      //     <SubwayLineComponent  />
-      //     );
-   
   }
 
   return (
     <div className="SubwayContainer">
       <h1>Subway Alerts</h1>
       <div>Subway Lines</div>
-      <div id= "buttons">
-      {navButtonsArr}
-      <button id="clearButton">Clear</button>
+      <div id="buttons">
+        {navButtonsArr}
+        <button id="clearButton">Clear</button>
       </div>
       {/* <button onClick={handleClick()}>train (1,2,3)</button>
       <button>train(4,5,6)</button>
