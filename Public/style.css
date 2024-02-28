@@ -1,14 +1,42 @@
+.fascinate-regular {
+  font-family: 'Fascinate', system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* <uniquifier>: Use a unique and descriptive class name */
+
+.workbench-metro {
+  font-family: 'Workbench', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: 'BLED' 0, 'SCAN' 0;
+}
+
+* {
+  font-family: 'Workbench', sans-serif;
+  
+}
 h1 {
-  color: blue;
-  text-align: center;
+  color: #2360A5;
+  margin: 30px;
+  /* background-color: bisque; */
+  text-align: center; 
+  border-style: solid;
+  border-width: 3px;
+  border-radius: 20px;
+  border-color: black;
 }
 .SubwayContainer {
   text-align: center;
-  border-color: black;
+  /* border-color: black;
   border-style: solid;
-  border-width: 5px;
-  height: 700px;
-  overflow-y: scroll
+  border-radius: 100px;
+  border-width: 5px; */
+  height: 800px;
+  overflow-y: scroll;
+  /* background-color: aquamarine; */
 }
 
 .totalBox {
@@ -18,39 +46,48 @@ h1 {
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 5px;
   grid-row-gap: 5px;
-  border-style: solid;
-  margin: 10px 
+  transition: all 0.3s;
+  /* border-style: solid; */
+  /* margin: 10px; */
 }
+
+/* .totalBox:hover{
+  transform: translate(0%,-5%);
+} */
 
 .subwayLine {
   font-family: Arial, Helvetica, sans-serif;
 
-  /* background-color: red; */
   border-style: solid;
-  border-radius: 50px;
+  border-radius: 100px;
   grid-column: 1;
   grid-row: span 2;
   display: flex;
+  margin-right: 10px;
   align-items: center; /* Center vertically */
   justify-content: center;
+  box-shadow: 7px 7px 7px 0px;
 }
 
 .status {
-  text-align: left;
+  text-align: center;
   border-style: solid;
-  border-radius: 10px;
+  justify-content: center;
+  border-radius: 35px;
   grid-column: 2/6;
+  margin-bottom: 10px;
   grid-row: 1;
-  padding: 5px
+  box-shadow: 7px 7px 7px 0px;
+  padding: 5px;
 }
 
 .additionalInformation {
-  
-  text-align: left;
+  text-align: center;
   border-style: solid;
-  border-radius: 10px;
+  border-radius: 35px;
+  height: 100px;
   grid-column: 2/6;
   grid-row: 2;
-  padding: 5px
-
+  box-shadow: 7px 7px 7px 0px;
+  padding: 5px;
 }
