@@ -6,11 +6,11 @@ const SubwayLineComponent = (props) => {
     return (
         <div className="totalBox">
             <div className="subwayLine" style = {{backgroundColor : props.color}}>
-                <p>{props.trainLine}</p>
+                <p>{props.group}</p>
                 <span id="subwayLine"></span>
             </div>
             <div className="status">
-                <p>Status: {props.trainStatus}</p>
+                <p>Alerts: {props.alerts}</p>
                 <span id="status"></span>
             </div>
             <div className="additionalInformation">

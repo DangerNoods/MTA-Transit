@@ -11,10 +11,19 @@ app.use(express.json()); //app.use catches every signal regardless of method (ge
 // app.use(express.static(path.resolve(__dirname, "../dist"))); //serving bundled static files
 
 // handles request from frontend for API data
-app.get('/subway', apiController.getSubwayInfo, (req, res, next) => {
+app.get('/subway', apiController.getSubwayInfo, (req, res) => {
   console.log(`inside of /subway route`);
   res.status(200).send(res.locals.data);
 });
+
+//handles request to get accessiblity XML.
+app.get ('/accessibility', apiController.getAccInfo, (req, res) => {
+  console.log('insdie of /accessiblity route')
+  res.status(200).send(res.locals.data)
+})
+
+
+//handles request from frontend
 
 app.get('/', (req, res, next) => {
   console.log(`inside of / route`);
