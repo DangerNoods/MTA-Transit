@@ -122,18 +122,22 @@ const MainContainer = () => {
     setActiveGroup(e.target.name);
   };
 
-  const trainGroupsArr = ['123', '456', '7', 'ACE', 'BDFM', 'G', 'L', 'NGRW'];
+  const trainGroupsArr = ['123', '456', '7', 'ACE', 'BDFM', 'G', 'L', 'NQRW'];
   const navButtonsArr = [];
+  const buttonNumArr = ["button1","button2","button3","button4","button5","button6","button7","button8"];
 
   for (let i = 0; i < trainGroupsArr.length; i++) {
     navButtonsArr.push(
-      <NavButtonComponent
+      <NavButtonComponent 
         trainGroup={trainGroupsArr[i]}
         handleNavClick={handleNavClick}
         activeGroup={activeGroup}
+        buttonNum={buttonNumArr[i]}
       />
     );
   }
+
+  console.log("lines =" + navButtonsArr)
 
   const subwayLines = [];
 
@@ -168,9 +172,12 @@ const MainContainer = () => {
 
   return (
     <div className="SubwayContainer">
-      Subway Lines
-      {navButtonsArr}
       <h1>Subway Alerts</h1>
+      <div>Subway Lines</div>
+      <div id= "buttons">
+      {navButtonsArr}
+      <button id="clearButton">Clear</button>
+      </div>
       {/* <button onClick={handleClick()}>train (1,2,3)</button>
       <button>train(4,5,6)</button>
       <button>train 7</button>
