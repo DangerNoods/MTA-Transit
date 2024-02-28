@@ -107,12 +107,17 @@ const TrainGroupContainer = () => {
   const lineButtonCompArr = [];
 
   for (let i = 0; i < currTrainGroup.split('').length; i++) {
-    lineButtonCompArr.push(<LineButtonComponent line={currTrainGroup[i]} />);
+    lineButtonCompArr.push(
+      <LineButtonComponent
+        line={currTrainGroup[i]}
+        currTrainGroup={currTrainGroup}
+      />
+    );
   }
 
   return (
     <>
-      <div>{lineButtonCompArr}</div>
+      <div className="line-btn-container">{lineButtonCompArr}</div>
       <div>{subwayLines}</div>
     </>
   );
