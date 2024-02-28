@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 
 import NavButtonComponent from '../component/NavButtonComponent.jsx';
+import { Link } from 'react-router-dom';
 
 const MainContainer = () => {
   const [activeGroup, setActiveGroup] = useState('');
@@ -41,7 +42,9 @@ const MainContainer = () => {
       <div>Subway Lines</div>
       <div id="buttons">
         {navButtonsArr}
-        <button id="clearButton">Clear</button>
+        <Link to={'/abc'}>
+          <button id="accessibilityButton">Accessibility</button>
+        </Link>
       </div>
     </div>
   );
