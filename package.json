@@ -31,8 +31,11 @@
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
     "gtfs-realtime-bindings": "^1.1.1",
+    "jsdom": "^24.0.0",
     "nodemon": "^3.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "xml2js": "^0.6.2",
+    "xmldom": "^0.6.0"
   }
 }
