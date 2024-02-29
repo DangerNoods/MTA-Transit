@@ -400,12 +400,20 @@ h1 {
 
 /* NAV SIDEBAR */
 
-nav {
+.sidebar ul {
   width: 200px;
   height: 200px;
-  margin-top: 16px;
   background-color: white;
   border: 3px solid black;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+}
+
+.sidebar ul li {
+  list-style: none;
 }
 
 #sidebar-toggle-btn {
@@ -421,4 +429,9 @@ nav {
 
 .sidebar.open {
   display: block;
+}
+
+#login-btn {
+  width: 75%;
+  height: 36px;
 }

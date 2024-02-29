@@ -25,7 +25,7 @@ const Sidebar = () => {
               <LoginButton />
             </li>
             <li>
-              <Link to="/profile">Preferences</Link>
+              <Link to="/preferences">Preferences</Link>
             </li>
           </ul>
         </nav>

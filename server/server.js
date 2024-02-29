@@ -5,6 +5,7 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const MongoStore = require('connect-mongo')(session);
 
 const app = express(); //invoke framework
 const PORT = 3000;
@@ -12,13 +13,16 @@ const clientId = '201959444032-a940k1h8ha9gq25hsc9j0uvf62ooe9fa.apps.googleuserc
 const clientSecert = process.env.CLIENT_SECERT;
 
 const apiController = require('./apiController');
+const userController = require('./userController');
 
 app.use(express.json()); //app.use catches every signal regardless of method (get, patch, put, post, delete) we will parse json (data form between languages)
 
 app.use(express.static(path.resolve(__dirname, '../public/index.html'))); //serving bundled static files
 
 //setting up Google OAuth
-app.use(session({ secret: 'your session secret', resave: false, saveUninitialized: false })); // Session config
+const sessionStore = new MongoStore({ mongooseUrl: 'MONGODB URI', collection: 'sessions', ttl: 14 * 24 * 60 * 60 });
+app.use(cors());
+app.use(session({ secret: 'your session secret', resave: false, saveUninitialized: false, store: sessionStore })); // Session config
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -29,10 +33,39 @@ passport.use(
       clientSecret: clientSecert,
       callbackURL: 'http://localhost:3000/callback',
     },
-    (accessToken, refreshToken, profile, done) => {
+    async (req, accessToken, refreshToken, profile, done) => {
       //handle user data recieved from Google
       console.log('Google Profile:', profile);
-      return done(null, profile);
+
+      //must require mongoose model in this file
+      const user = await User.findOne({ email: profile.email });
+
+      if (user) {
+        console.log('User Found', user);
+        user.accessToken = accessToken;
+        //finding existing user from DB
+        User.updateOne({ _id: user._id }, { $set: { accessToken: accessToken } })
+          .then(() => {
+            console.log('Access token updated in database');
+            req.session.userId = user._id;
+            return done(null, user);
+          })
+          .catch((err) => console.log('error in passport.use when trying to update the user with the new accesstoken:' + err));
+      } else {
+        // if no user found, adding the user to our DB
+        const newUser = {
+          name: profile.displayName,
+          email: profile.email,
+          accessToken: accessToken,
+        };
+        User.insertOne(newUser)
+          .then((newUserData) => {
+            console.log('New user created: ', newUserData);
+            req.session.userId = newUserData._id;
+            return done(null, newUserData);
+          })
+          .catch((err) => console.log('error in passport.use when trying to insert new user:' + err));
+      }
     }
   )
 );
@@ -48,9 +81,10 @@ app.get('/', (req, res) => {
 
 //Authentication routes
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
 // change the routes accordingly
-app.get('/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect('http://localhost:3000/profile');
+app.get('/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
+  res.redirect('http://localhost:3000/preferences');
 });
 
 // handles request from frontend for API data
@@ -63,6 +97,10 @@ app.get('/subway', apiController.getSubwayInfo, (req, res) => {
 app.get('/accessibility', apiController.getAccInfo, (req, res) => {
   console.log('inside of /accessiblity route');
   res.status(200).json(res.locals.data);
+});
+
+app.get('/preferences', userController.isLoggedIn, (req, res) => {
+  res.status(200).json({ message: 'Welcome, authenticated user!' });
 });
 
 // app.get('/*', function (req, res) {
