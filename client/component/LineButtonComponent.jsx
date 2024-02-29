@@ -1,23 +1,23 @@
-import React from 'react';
-import SubwayLineComponent from './SubwayLineComponent.jsx';
-import {Link} from 'react-router-dom'
+// import React from 'react';
+// import SubwayLineComponent from './SubwayLineComponent.jsx';
+// import {Link} from 'react-router-dom'
 
-const LineButtonComponent = ({ line, subwaylines }) => {
+// const LineButtonComponent = ({ line, subwaylines }) => {
 
-  const specLine = [];
+//   const specLine = [];
 
   
 
 
-  // <Link to={'/' + line}>
-  //       <button
-  //         name={line}
-  //         onClick={handleNavClick}
-  //         className={activeGroup === trainGroup ? 'active' : ''}
-  //       >
-  //         {trainGroupStr}
-  //       </button>
-  //     </Link>
+//   // <Link to={'/' + line}>
+//   //       <button
+//   //         name={line}
+//   //         onClick={handleNavClick}
+//   //         className={activeGroup === trainGroup ? 'active' : ''}
+//   //       >
+//   //         {trainGroupStr}
+//   //       </button>
+//   //     </Link>
 
     
 
@@ -25,18 +25,18 @@ const LineButtonComponent = ({ line, subwaylines }) => {
 
 
 
-  const handleClick = () => {
-   console.log(specLine)
+//   const handleClick = () => {
+//    console.log(specLine)
 
      
 
-  }
-  return (
-    <button 
-      name={line}
-      >{line}</button>
+//   }
+//   return (
+//     <button 
+//       name={line}
+//       >{line}</button>
    
-  )
-};
+//   )
+// };
 
-export default LineButtonComponent;
+// export default LineButtonComponent;
