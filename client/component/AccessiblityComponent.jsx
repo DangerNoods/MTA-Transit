@@ -6,7 +6,7 @@ const AccessibilityComponent = (props) => {
         <div className="accessibilityTotalComponent">
           
           <div className="station">
-            <p>{props.station}</p>
+            <p className="eachstation">{props.station}</p>
           </div>
 
           <div className="trainNo">
