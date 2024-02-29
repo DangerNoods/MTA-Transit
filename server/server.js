@@ -2,56 +2,43 @@ require('dotenv').config();
 
 const path = require('path');
 const express = require('express');
-const session = require('express-session');
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const session = require('express-session');
+const cookieSession = require('cookie-session');
+require('./passport');
 
 const app = express(); //invoke framework
 const PORT = 3000;
-const clientId = '201959444032-a940k1h8ha9gq25hsc9j0uvf62ooe9fa.apps.googleusercontent.com';
-const clientSecert = process.env.CLIENT_SECERT;
 const MONGODB_PW = process.env.MONGODB_PW;
 
-
 const apiController = require('./apiController');
+const userController = require('./userController');
 
 app.use(express.json()); //app.use catches every signal regardless of method (get, patch, put, post, delete) we will parse json (data form between languages)
 
 app.use(express.static(path.resolve(__dirname, '../public/index.html'))); //serving bundled static files
 
-//setting up Google OAuth
-app.use(session({ secret: 'your session secret', resave: false, saveUninitialized: false })); // Session config
-app.use(passport.initialize());
-app.use(passport.session());
-
-
-
 //setting up mongoDB
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 // const dbController = require ('./dbController')
-mongoose.connect(`mongodb+srv://dwong92:${MONGODB_PW}@mta.qmbhwkj.mongodb.net/?retryWrites=true&w=majority&appName=MTA`, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(`mongodb+srv://dwong92:${MONGODB_PW}@mta.qmbhwkj.mongodb.net/?retryWrites=true&w=majority&appName=MTA`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
 
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: clientId,
-      clientSecret: clientSecert,
-      callbackURL: 'http://localhost:3000/callback',
-    },
-    (accessToken, refreshToken, profile, done) => {
-      //handle user data recieved from Google
-      console.log('Google Profile:', profile);
-      return done(null, profile);
-    }
-  )
-);
+//setting up Google OAuth
 
-// passport serialization
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((user, done) => done(null, user));
+app.use(
+  cookieSession({
+    name: 'google-auth-session',
+    keys: ['key1', 'key2'],
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 //handles request from frontend
 app.get('/', (req, res) => {
@@ -59,10 +46,11 @@ app.get('/', (req, res) => {
 });
 
 //Authentication routes
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+app.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
 // change the routes accordingly
-app.get('/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect('http://localhost:3000/profile');
+app.get('/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
+  res.redirect('/preferences');
 });
 
 // handles request from frontend for API data
@@ -77,16 +65,9 @@ app.get('/accessibility', apiController.getAccInfo, (req, res) => {
   res.status(200).json(res.locals.data);
 });
 
-
-//end of creating user in database
-
-// app.get('/*', function (req, res) {
-//   res.sendFile(path.resolve(__dirname, '../public/index.html'), function (err) {
-//     if (err) {
-//       res.status(500).send(err);
-//     }
-//   });
-// });
+app.get('/preferences', userController.isLoggedIn, (req, res) => {
+  res.status(200).json({ message: 'Welcome, authenticated user!' });
+});
 
 // handle undesignated paths
 app.use('*', (req, res) => {
