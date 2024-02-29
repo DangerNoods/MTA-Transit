@@ -424,3 +424,23 @@ nav {
 .sidebar.open {
   display: block;
 }
+
+
+.clear-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  
+ 
+}
+
+.eachButtonName {
+  font-size: 14px;
+  border: none;
+  color: black;
+  padding: 8px;
+  text-align: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
