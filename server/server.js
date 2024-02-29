@@ -22,6 +22,16 @@ app.use(session({ secret: 'your session secret', resave: false, saveUninitialize
 app.use(passport.initialize());
 app.use(passport.session());
 
+// FrSadoGCS3iw1joN
+
+//setting up mongoDB
+const mongoose = require('mongoose')
+// const dbController = require ('./dbController')
+mongoose.connect('mongodb+srv://dwong92:FrSadoGCS3iw1joN@mta.qmbhwkj.mongodb.net/?retryWrites=true&w=majority&appName=MTA', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connection.once('open', () => {
+  console.log('Connected to Database');
+});
+
 passport.use(
   new GoogleStrategy(
     {
@@ -64,6 +74,9 @@ app.get('/accessibility', apiController.getAccInfo, (req, res) => {
   console.log('inside of /accessiblity route');
   res.status(200).json(res.locals.data);
 });
+
+
+//end of creating user in database
 
 // app.get('/*', function (req, res) {
 //   res.sendFile(path.resolve(__dirname, '../public/index.html'), function (err) {
