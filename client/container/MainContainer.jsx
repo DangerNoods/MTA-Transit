@@ -39,7 +39,6 @@ const MainContainer = () => {
 
   return (
     <div className="SubwayContainer">
-      <h1>Subway Alerts</h1>
 
       <div>Subway Lines</div>
       <div id="buttons">

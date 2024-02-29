@@ -12,17 +12,29 @@ import AccessibilityContainer from './container/AccessibilityContainer.jsx';
 const App = () => {
   return (
     <GoogleOAuthProvider clientId="201959444032-a940k1h8ha9gq25hsc9j0uvf62ooe9fa.apps.googleusercontent.com">
+      
+      
       <Router>
-        <Sidebar />
+      <div id= "topBar">
+      <h1 id="header">Subway Alerts</h1>
+      
+      
+        {/* <h1 id="header">Subway Alerts</h1> */}
+        <Sidebar id="navbar"/>
+        </div>
+        
+        <div id="container">
         <Routes>
           <Route path="/" element={<MainContainer />} />
           <Route path="/:currTrainGroup" element={<TrainGroupContainer />} />
           <Route path="/abc" element={<AccessibilityContainer />} />
           <Route path="/preferences" element={<Preferences />} />
         </Routes>
+        </div>
       </Router>
     </GoogleOAuthProvider>
   );
 };
 
 export default App;
+
