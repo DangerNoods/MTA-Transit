@@ -98,7 +98,7 @@ h1 {
 
 /* accessiblity styling */
 
-.accessibilityTotalComponent{
+.accessibilityTotalComponent {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(4, 1fr);
@@ -106,30 +106,30 @@ h1 {
   background-color: lightblue;
 }
 
-.station{
+.station {
   grid-column: 1;
   align-items: center; /* Center vertically */
   border-style: solid;
 }
 
-.trainNo{
+.trainNo {
   grid-column: 2;
-  grid-row: 1
+  grid-row: 1;
 }
 
-.outageDates{
+.outageDates {
   grid-column: 2;
-  grid-row: 2
+  grid-row: 2;
 }
 
-.estimatedReturntoService{
+.estimatedReturntoService {
   grid-column: 2;
-  grid-row: 3
+  grid-row: 3;
 }
 
-.ADA{
+.ADA {
   grid-column: 2;
-  grid-row: 4
+  grid-row: 4;
 }
 
 /* button styling */
@@ -286,8 +286,8 @@ h1 {
   background-color: #fccc0a;
 }
 
-#accessibilityButton{
-  background-color: #A7A9AC;
+#accessibilityButton {
+  background-color: #a7a9ac;
   color: black;
   border-radius: 100px;
   margin-right: 15px;
