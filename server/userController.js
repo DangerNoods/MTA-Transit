@@ -1,8 +1,6 @@
-const User = require('../models/userModel');
+const User = require('./schemaModel');
 
 const userController = {};
-
-userController.verifyUser = (req, res, next) => {};
 
 userController.isLoggedIn = (req, res, next) => {
   if (req.session.userId) {
