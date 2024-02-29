@@ -349,6 +349,7 @@ h1 {
 /* Train Group Container Styling */
 .line-btn-container {
   display: flex;
+  
   justify-content: center;
   align-items: center;
   gap: 8px;
@@ -366,6 +367,7 @@ h1 {
 }
 
 #group-123 {
+  
   background-color: #ee252e;
 }
 
