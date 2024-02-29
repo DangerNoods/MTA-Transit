@@ -39,15 +39,17 @@ const MainContainer = () => {
 
   return (
     <div className="SubwayContainer">
-      <h1>Subway Alerts</h1>
 
       <div>Subway Lines</div>
       <div id="buttons">
         {navButtonsArr}
         <Link to={'/abc'}>
         <button id="accessibilityButton">Accessibility</button>
+        
       </Link>
+      
       </div>
+      <img  className={'trainimage'} src ='https://assets3.thrillist.com/v1/image/2728617/792x528/scale;webp=auto;jpeg_quality=60;progressive.jpg'/>
     </div>
   );
 };

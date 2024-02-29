@@ -27,6 +27,10 @@ const Sidebar = () => {
             <li>
               <Link to="/preferences">Preferences</Link>
             </li>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+
           </ul>
         </nav>
       </div>

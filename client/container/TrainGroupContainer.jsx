@@ -132,7 +132,7 @@ const TrainGroupContainer = () => {
   const lineButtonCompArr = [];
   for (let i = 0; i < currTrainGroup.split('').length; i++) {
     const eachline = currTrainGroup[i];
-    console.log(eachline, 'eachLine');
+    
     lineButtonCompArr.push(
     
       <button   className={'mta-line-btn'}  id={'group-' + currTrainGroup} onClick={() => setSelectedButton(eachline)}>{eachline}</button>
@@ -156,16 +156,25 @@ const TrainGroupContainer = () => {
     }
   }
 
+  const showAll = []
+  for (let i = 0; i < currTrainGroup.split('').length; i++) {
+    const eachline = currTrainGroup[i];
+     if (currTrainGroup.length !== 1) {
+      showAll.push( <button className={'eachshowAll-Button'} onClick = {() =>setSelectedButton(null) } >Show All</button>)
+     } 
+     break;
+    
+  }
+
   // <div>{subwayLines[0]}</div>
   return (
     <>
+      
       <div className={'line-btn-container'}>{lineButtonCompArr}</div>
-
-      <Link to={'/'}>
-        <button>Back</button>
-      </Link>
+      <div className= {'showAll-button'}>{showAll}</div>
 
       <div>{filteredSubwayLines}</div>
+      
       <div></div>
     </>
   );
