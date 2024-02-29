@@ -10,6 +10,8 @@ const app = express(); //invoke framework
 const PORT = 3000;
 const clientId = '201959444032-a940k1h8ha9gq25hsc9j0uvf62ooe9fa.apps.googleusercontent.com';
 const clientSecert = process.env.CLIENT_SECERT;
+const MONGODB_PW = process.env.MONGODB_PW;
+
 
 const apiController = require('./apiController');
 
@@ -22,12 +24,12 @@ app.use(session({ secret: 'your session secret', resave: false, saveUninitialize
 app.use(passport.initialize());
 app.use(passport.session());
 
-// FrSadoGCS3iw1joN
+
 
 //setting up mongoDB
 const mongoose = require('mongoose')
 // const dbController = require ('./dbController')
-mongoose.connect('mongodb+srv://dwong92:FrSadoGCS3iw1joN@mta.qmbhwkj.mongodb.net/?retryWrites=true&w=majority&appName=MTA', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(`mongodb+srv://dwong92:${MONGODB_PW}@mta.qmbhwkj.mongodb.net/?retryWrites=true&w=majority&appName=MTA`, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
