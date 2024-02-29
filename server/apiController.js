@@ -1,67 +1,63 @@
-const { text } = require("body-parser");
-const GtfsRealtimeBindings = require("gtfs-realtime-bindings");
+const { text } = require('body-parser');
+const GtfsRealtimeBindings = require('gtfs-realtime-bindings');
 // var parseString = require('xml2js').parseString
-const { DOMParser } = require('xmldom')
+const { DOMParser } = require('xmldom');
 // const { JSDOM } = require("jsdom");
 
-const URL =
-  'https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/camsys%2Fsubway-alerts';
-const URL2 =
-  'https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fnyct_ene.xml';
+const URL = 'https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/camsys%2Fsubway-alerts';
+const URL2 = 'https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fnyct_ene.xml';
 const key = 'IWddVccjk6aIOEuV87rGV8p2551sWLzI3y6O65yu';
 
 const ApiController = {
   getAccInfo(req, res, next) {
-    
     fetch(URL2, {
       headers: { 'x-api-key': key },
     })
       .then((response) => response.text())
       .then((response) => {
         //Parsing Data
-        const parser = new DOMParser(); 
-        const data = parser.parseFromString(response, "text/xml")
+        const parser = new DOMParser();
+        const data = parser.parseFromString(response, 'text/xml');
 
         //creating an array of element tags. Outage -> (station, trainNo, outageDates, ADA). All buried in firstChild.data
-        const outages = Array.from(data.getElementsByTagName("outage")).map((outageElement) => {
+        const outages = Array.from(data.getElementsByTagName('outage')).map((outageElement) => {
           return {
-            station: outageElement.getElementsByTagName("station")[0].firstChild.data,
-            trainNo: outageElement.getElementsByTagName("trainno")[0].firstChild.data,
-            outageDates: outageElement.getElementsByTagName("outagedate")[0].firstChild.data,
-            estimatedReturntoService: outageElement.getElementsByTagName("estimatedreturntoservice")[0].firstChild.data,
-            ADA: outageElement.getElementsByTagName("ADA")[0].firstChild.data
+            station: outageElement.getElementsByTagName('station')[0].firstChild.data,
+            trainNo: outageElement.getElementsByTagName('trainno')[0].firstChild.data,
+            outageDates: outageElement.getElementsByTagName('outagedate')[0].firstChild.data,
+            estimatedReturntoService: outageElement.getElementsByTagName('estimatedreturntoservice')[0].firstChild.data,
+            ADA: outageElement.getElementsByTagName('ADA')[0].firstChild.data,
           };
-      });
+        });
 
         //testing console logs
-        // const outage = Array.from(data.getElementsByTagName('station')).map(element => element.firstChild.data) 
+        // const outage = Array.from(data.getElementsByTagName('station')).map(element => element.firstChild.data)
         // console.log(data.getElementsByTagName('outage')[0])
         res.locals.data = outages;
 
         return next();
       })
       .catch((err) => {
-        console.log("this is the error", err);
+        console.log('this is the error', err);
         return next({
-          log: "Express error handler caught accessibility error",
+          log: 'Express error handler caught accessibility error',
           status: 500,
-          message: { err: "An error occurred" },
+          message: { err: 'An error occurred' },
         });
       });
   },
 
   async getSubwayInfo(req, res, next) {
     try {
+      // Fetching MTA alerts data
       response = await fetch(URL, {
         headers: { 'x-api-key': key },
       });
 
+      // parsing data from api
       const buffer = await response.arrayBuffer();
-      const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(
-        new Uint8Array(buffer)
-      );
+      const feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(new Uint8Array(buffer));
 
-      const currentTime = Math.floor(Date.now() / 1000);
       const routesIndex = {
         1: 0,
         2: 1,
@@ -84,35 +80,15 @@ const ApiController = {
         R: 18,
         W: 19,
       };
-      const routes = [
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        'A',
-        'C',
-        'E',
-        'B',
-        'D',
-        'F',
-        'M',
-        'G',
-        'L',
-        'N',
-        'Q',
-        'R',
-        'W',
-      ];
+
+      const routes = ['1', '2', '3', '4', '5', '6', '7', 'A', 'C', 'E', 'B', 'D', 'F', 'M', 'G', 'L', 'N', 'Q', 'R', 'W'];
 
       const data = routes.map((el) => [el]);
 
       const alertsArr = [];
+
       for (let i = 0; i < feed.entity.length; i++) {
-        if (feed.entity[i].alert.informedEntity[0].routeId)
-          alertsArr.push(feed.entity[i].alert);
+        if (feed.entity[i].alert.informedEntity[0].routeId) alertsArr.push(feed.entity[i].alert);
       }
 
       for (let j = 0; j < alertsArr.length; j++) {
@@ -122,33 +98,20 @@ const ApiController = {
           end: '',
         };
 
+        const currentTime = Math.floor(Date.now() / 1000);
         const firstStartTime = alertsArr[j].activePeriod[0].start.low;
-        firstStartTime !== 0
-          ? (alertObj.start += dateString(
-              new Date(alertsArr[j].activePeriod[0].start.low * 1000)
-            ))
-          : (alertObj.start += 'Unknown');
+        firstStartTime !== 0 ? (alertObj.start += dateString(new Date(alertsArr[j].activePeriod[0].start.low * 1000))) : (alertObj.start += 'Unknown');
 
-        const lastEndTime =
-          alertsArr[j]?.activePeriod[alertsArr[j].activePeriod.length - 1]?.end
-            .low;
+        const lastEndTime = alertsArr[j]?.activePeriod[alertsArr[j].activePeriod.length - 1]?.end.low;
 
         lastEndTime !== 0 && lastEndTime > currentTime
-          ? (alertObj.end += dateString(
-              new Date(
-                alertsArr[j]?.activePeriod[alertsArr[j].activePeriod.length - 1]
-                  ?.end.low * 1000
-              )
-            ))
+          ? (alertObj.end += dateString(new Date(alertsArr[j]?.activePeriod[alertsArr[j].activePeriod.length - 1]?.end.low * 1000)))
           : lastEndTime === 0
           ? (alertObj.end += 'Unknown')
           : alertObj.end;
 
         for (let k = 0; k < alertsArr[j].informedEntity.length; k++) {
-          if (data[routesIndex[alertsArr[j].informedEntity[k].routeId]])
-            data[routesIndex[alertsArr[j].informedEntity[k].routeId]].push(
-              alertObj
-            );
+          if (data[routesIndex[alertsArr[j].informedEntity[k].routeId]]) data[routesIndex[alertsArr[j].informedEntity[k].routeId]].push(alertObj);
         }
       }
       res.locals.data = data;

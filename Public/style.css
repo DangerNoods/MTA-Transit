@@ -399,11 +399,15 @@ h1 {
 }
 
 /* NAV SIDEBAR */
+
 nav {
-  width: 100%;
+  width: 200px;
+  height: 200px;
   margin-top: 16px;
-  background-color: grey;
+  background-color: white;
+  border: 3px solid black;
 }
+
 #sidebar-toggle-btn {
   background-color: transparent;
   border: none;
@@ -418,21 +422,3 @@ nav {
 .sidebar.open {
   display: block;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

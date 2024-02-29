@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 
 import NavButtonComponent from '../component/NavButtonComponent.jsx';
+import LoginButton from '../component/LoginButton.jsx';
 import { Link } from 'react-router-dom';
 
 const MainContainer = () => {
@@ -13,16 +14,7 @@ const MainContainer = () => {
 
   const trainGroupsArr = ['123', '456', '7', 'ACE', 'BDFM', 'G', 'L', 'NQRW'];
   const navButtonsArr = [];
-  const buttonNumArr = [
-    'button1',
-    'button2',
-    'button3',
-    'button4',
-    'button5',
-    'button6',
-    'button7',
-    'button8',
-  ];
+  const buttonNumArr = ['button1', 'button2', 'button3', 'button4', 'button5', 'button6', 'button7', 'button8'];
 
   for (let i = 0; i < trainGroupsArr.length; i++) {
     navButtonsArr.push(
@@ -39,6 +31,7 @@ const MainContainer = () => {
   return (
     <div className="SubwayContainer">
       <h1>Subway Alerts</h1>
+
       <div>Subway Lines</div>
       <div id="buttons">
         {navButtonsArr}
