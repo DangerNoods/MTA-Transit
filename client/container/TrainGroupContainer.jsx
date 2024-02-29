@@ -169,11 +169,9 @@ const TrainGroupContainer = () => {
   // <div>{subwayLines[0]}</div>
   return (
     <>
+      
       <div className={'line-btn-container'}>{lineButtonCompArr}</div>
       <div className= {'showAll-button'}>{showAll}</div>
-      <Link to={'/'}>
-        <button >Back</button>
-      </Link>
 
       <div>{filteredSubwayLines}</div>
       
