@@ -16,9 +16,9 @@ const NavButtonComponent = ({
       <Link to={'/' + trainGroup}>
         <button
           name={trainGroup}
-          onClick={handleNavClick}
+        //   onClick={handleNavClick}
           id={buttonNum}
-          className={activeGroup === trainGroup ? 'active' : ''}
+        //   className={activeGroup === trainGroup ? 'active' : ''}
         >
           {trainGroupStr}
         </button>
