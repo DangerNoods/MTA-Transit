@@ -22,18 +22,40 @@ const TrainGroupContainer = () => {
   ]);
 
   useEffect(() => {
+
+  
     fetchData();
+  
+    const rerenderData = setInterval(() => {
+        
+      fetchData()
+      
+    
+    }, 5000);
+  
+    return() => clearInterval(rerenderData)
   }, []);
 
   const fetchData = async () => {
     try {
       const response = await fetch('/subway');
       const result = await response.json();
+ 
+    
+    
+      for (let i =0; i< trainGroups.length; i++) {
+        const reset = trainGroups[i]
+        reset.alerts = []
+
+      }
 
       for (let i = 0; i < result.length; i++) {
         const element = result[i];
+     
 
         const group = [...trainGroups];
+     
+   
 
         if (element[0] === '1' || element[0] === '2' || element[0] === '3') {
           group[0].alerts.push(element);
@@ -81,7 +103,7 @@ const TrainGroupContainer = () => {
   //going through the trainGroups array
   for (let i = 0; i < trainGroups.length; i++) {
     const element = trainGroups[i];
-    console.log(element, 'element');
+
 
     const group = element.alerts;
 
@@ -112,7 +134,9 @@ const TrainGroupContainer = () => {
     const eachline = currTrainGroup[i];
     console.log(eachline, 'eachLine');
     lineButtonCompArr.push(
-      <button onClick={() => setSelectedButton(eachline)}>{eachline}</button>
+    
+      <button   className={'mta-line-btn'}  id={'group-' + currTrainGroup} onClick={() => setSelectedButton(eachline)}>{eachline}</button>
+     
     );
   }
 
@@ -135,7 +159,7 @@ const TrainGroupContainer = () => {
   // <div>{subwayLines[0]}</div>
   return (
     <>
-      <div>{lineButtonCompArr}</div>
+      <div className={'line-btn-container'}>{lineButtonCompArr}</div>
 
       <Link to={'/'}>
         <button>Back</button>
