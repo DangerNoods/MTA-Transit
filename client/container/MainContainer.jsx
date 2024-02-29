@@ -42,6 +42,9 @@ const MainContainer = () => {
       <div>Subway Lines</div>
       <div id="buttons">
         {navButtonsArr}
+        <Link to={'/abc'}>
+        <button id="accessibilityButton">Accessibility</button>
+      </Link>
       </div>
     </div>
   );
