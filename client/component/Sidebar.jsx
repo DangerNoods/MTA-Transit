@@ -14,20 +14,22 @@ const Sidebar = () => {
   };
 
   return (
-    <div className={`sidebar ${isOpen ? 'open' : ''}`}>
-      <button onClick={toggleSidebar}>
-        {isOpen ? <CloseIcon fontSize="medium" color="primary" /> : <MenuIcon fontSize="medium" color="primary" />}
+    <div className="nav-container">
+      <button id="sidebar-toggle-btn" onClick={toggleSidebar}>
+        {isOpen ? <CloseIcon fontSize="medium" color="black" /> : <MenuIcon fontSize="medium" color="black" />}
       </button>
-      <nav>
-        <ul>
-          <li>
-            <LoginButton />
-          </li>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-        </ul>
-      </nav>
+      <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+        <nav>
+          <ul>
+            <li>
+              <LoginButton />
+            </li>
+            <li>
+              <Link to="/profile">Preferences</Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   );
 };

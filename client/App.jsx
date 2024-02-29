@@ -5,7 +5,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 //importing components
 import MainContainer from './container/MainContainer.jsx';
 import TrainGroupContainer from './container/TrainGroupContainer.jsx';
-import Profile from './component/Profile.jsx';
+import Preferences from './component/Preferences.jsx';
 import Sidebar from './component/Sidebar.jsx';
 import AccessibilityContainer from './container/AccessibilityContainer.jsx';
 
@@ -18,7 +18,7 @@ const App = () => {
           <Route path="/" element={<MainContainer />} />
           <Route path="/:currTrainGroup" element={<TrainGroupContainer />} />
           <Route path="/abc" element={<AccessibilityContainer />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/preferences" element={<Preferences />} />
         </Routes>
       </Router>
     </GoogleOAuthProvider>

@@ -18,10 +18,6 @@
   font-family: 'Workbench', sans-serif;
 }
 
-body {
-  margin: 20px 4px;
-}
-
 h1 {
   color: #2360a5;
   margin: 30px;
@@ -92,7 +88,7 @@ h1 {
   height: 100px;
   grid-column: 2/6;
   /* grid-row: 2; */
-  box-shadow: 7px 7px 7px 0px;
+
   padding: 5px;
 }
 
@@ -102,34 +98,84 @@ h1 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  border-style: solid;
+  border-style: 2px solid;
   background-color: lightblue;
+  padding: 10px;
 }
 
 .station {
+  display: flex;
+  justify-content: center;
   grid-column: 1;
-  align-items: center; /* Center vertically */
+  border: 2px black;
+  align-items: center;
   border-style: solid;
+  border-radius: 10px;
+  background-color: #ecf0f1;
+  padding: 5px;
+  width: 130px;
+  margin-left: 150px;
+  box-shadow: 10px 5px 5px black;
+  animation: fadeInUp 1s ease forwards;
+  /* animation: rotateAnimation 1s linear forwards; */
+  position: absolute;
+  margin-top: 200px;
 }
 
 .trainNo {
   grid-column: 2;
   grid-row: 1;
+  padding: 10px;
+  border: 2px solid #2ecc71;
+  border-radius: 10px;
+  background-color: #ebf3f4;
+  margin: 10px;
+  margin-right: 100px;
+  animation: fadeInUp 1s ease forwards;
+  /* animation: rotateAnimation 1s linear forwards */
 }
 
 .outageDates {
   grid-column: 2;
   grid-row: 2;
+  padding: 10px;
+  border: 2px solid #2ecc71;
+  border-radius: 10px;
+  background-color: #ebf3f4;
+  margin: 10px;
+  margin-right: 100px;
+  animation: fadeInUp 1s ease forwards;
 }
 
 .estimatedReturntoService {
   grid-column: 2;
   grid-row: 3;
+  padding: 10px;
+  border: 2px solid #2ecc71;
+  border-radius: 10px;
+  background-color: #ebf3f4;
+  margin: 10px;
+  margin-right: 100px;
+  animation: fadeInUp 1s ease forwards;
 }
 
 .ADA {
   grid-column: 2;
   grid-row: 4;
+  padding: 10px;
+  border: 2px solid #2ecc71;
+  border-radius: 10px;
+  background-color: #ebf3f4;
+  margin: 10px;
+  margin-right: 100px;
+  animation: fadeInUp 1s ease forwards;
+  /* animation: rotateAnimation 1s linear forwards */
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
 }
 
 /* button styling */
@@ -350,4 +396,29 @@ h1 {
 #group-NQRW {
   color: black;
   background-color: #fccc0a;
+}
+
+/* NAV SIDEBAR */
+
+nav {
+  width: 200px;
+  height: 200px;
+  margin-top: 16px;
+  background-color: white;
+  border: 3px solid black;
+}
+
+#sidebar-toggle-btn {
+  background-color: transparent;
+  border: none;
+}
+
+.sidebar {
+  width: 100%;
+  position: absolute;
+  display: none;
+}
+
+.sidebar.open {
+  display: block;
 }
