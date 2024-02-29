@@ -367,35 +367,42 @@ h1 {
 }
 
 #group-123 {
-  
+
   background-color: #ee252e;
 }
 
 #group-456 {
+
   background-color: #00933c;
 }
 
 #group-7 {
+
   background-color: #b933ad;
 }
 
 #group-ACE {
+
   background-color: #0039a6;
 }
 
 #group-BDFM {
+
   background-color: #ff6319;
 }
 
 #group-G {
+
   background-color: #6cbe45;
 }
 
 #group-L {
+  
   background-color: #a7a9ac;
 }
 
 #group-NQRW {
+ 
   color: black;
   background-color: #fccc0a;
 }
@@ -443,4 +450,21 @@ nav {
   width: 56px;
   height: 56px;
   border-radius: 50%;
+}
+
+
+.trainimage {
+
+ 
+
+  
+  width: 100%;
+  height: 300px;
+
+
+  
+  margin-top: 50px;
+  
+ 
+
 }

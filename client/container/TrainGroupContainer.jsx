@@ -171,6 +171,7 @@ const TrainGroupContainer = () => {
     <>
       <div className={'line-btn-container'}>{lineButtonCompArr}</div>
       <div className= {'showAll-button'}>{showAll}</div>
+      
       <Link to={'/'}>
         <button >Back</button>
       </Link>
