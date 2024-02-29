@@ -426,7 +426,7 @@ nav {
 }
 
 
-.clear-button {
+.showAll-button {
   display: flex;
   justify-content: center;
   margin-top: 10px;
@@ -434,7 +434,7 @@ nav {
  
 }
 
-.eachButtonName {
+.eachshowAll-Button {
   font-size: 14px;
   border: none;
   color: black;

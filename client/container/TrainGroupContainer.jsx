@@ -160,7 +160,7 @@ const TrainGroupContainer = () => {
   for (let i = 0; i < currTrainGroup.split('').length; i++) {
     const eachline = currTrainGroup[i];
      if (currTrainGroup.length !== 1) {
-      showAll.push( <button className={'eachButtonName'} onClick = {() =>setSelectedButton(null) } >Show All</button>)
+      showAll.push( <button className={'eachshowAll-Button'} onClick = {() =>setSelectedButton(null) } >Show All</button>)
      } 
      break;
     
@@ -170,7 +170,7 @@ const TrainGroupContainer = () => {
   return (
     <>
       <div className={'line-btn-container'}>{lineButtonCompArr}</div>
-      <div className= {'clear-button'}>{showAll}</div>
+      <div className= {'showAll-button'}>{showAll}</div>
       <Link to={'/'}>
         <button >Back</button>
       </Link>
