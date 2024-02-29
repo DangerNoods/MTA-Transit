@@ -8,6 +8,7 @@ import LineButtonComponent from '../component/LineButtonComponent.jsx';
 const TrainGroupContainer = () => {
   const { currTrainGroup } = useParams();
   console.log(typeof currTrainGroup, 'current group')
+  const [selectedButton, setSelectedButton] = useState(null);
 
   const [trainGroups, setTrainGroups] = useState([
     { group: '123', alerts: [] },
@@ -106,33 +107,41 @@ const TrainGroupContainer = () => {
       }
     }
   }
+  const lineButtonCompArr = [];
+  for (let i = 0; i < currTrainGroup.split('').length; i++) {
+    const line = currTrainGroup[i];
+    console.log(line, 'line')
+    lineButtonCompArr.push(
+      <button  onClick={() => setSelectedButton(line)}>
+        {line}
+      </button>
+    );
+  }
+
+
+  const filteredSubwayLines = [];
+for (let i = 0; i < subwayLines.length; i++) {
+  const subwayLine = subwayLines[i];
+  const line = subwayLine.props.line;
+  
+  if (!selectedButton || line === selectedButton) {
+    filteredSubwayLines.push(subwayLine);
+  }
+}
+
+
 
   // creating LineButtonComponents
-  const lineButtonCompArr = [];
+  // const lineButtonCompArr = [];
 
 
-  for (let i = 0; i < currTrainGroup.split('').length; i++) {
-    console.log(currTrainGroup[i], 'currentTrain')
+  // for (let i = 0; i < currTrainGroup.split('').length; i++) {
+  //   console.log(currTrainGroup[i], 'currentTrain')
     
-    lineButtonCompArr.push(<Link to={'/'+ currTrainGroup[i]}><LineButtonComponent line={currTrainGroup[i]} /></Link>);
+  //   lineButtonCompArr.push(<Link to={'/'+ currTrainGroup[i]}><LineButtonComponent line={currTrainGroup[i]} /></Link>);
      
-     
-
-
-  // for (let i =0; i< subwaylines.length; i++){
-  //   if (subwaylines[i].props.line === line){
-  //    console.log(specLine)
-  //     specLine.push(
-  //       <SubwayLineComponent 
-  //       line={subwaylines[i].props.line}
-  //       alerts={subwaylines[i].props.alerts}
-  //       start={subwaylines[i].props.start}
-  //       end={subwaylines[i].props.end}
-  //     />)
-  //   }
      
   // }
-  }
 
   return (
     <>
@@ -140,7 +149,7 @@ const TrainGroupContainer = () => {
    
       
       <Link to={'/'}><button>Back</button></Link>
-      <div>{subwayLines}</div>
+      <div>{filteredSubwayLines}</div>
       <div>
       
       </div>
