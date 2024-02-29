@@ -3,7 +3,7 @@ const User = require('./schemaModel');
 const userController = {};
 
 userController.isLoggedIn = (req, res, next) => {
-  if (req.session.userId) {
+  if (req.user) {
     next();
   } else {
     next({

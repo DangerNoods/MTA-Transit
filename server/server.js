@@ -3,14 +3,12 @@ require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
-const User = require('./schemaModel');
+const cookieSession = require('cookie-session');
+require('./passport');
 
 const app = express(); //invoke framework
 const PORT = 3000;
-const clientId = '201959444032-a940k1h8ha9gq25hsc9j0uvf62ooe9fa.apps.googleusercontent.com';
-const clientSecert = process.env.CLIENT_SECERT;
 const MONGODB_PW = process.env.MONGODB_PW;
 
 const apiController = require('./apiController');
@@ -33,57 +31,14 @@ mongoose.connection.once('open', () => {
 
 //setting up Google OAuth
 
-app.use(session({ secret: 'danger noodle', resave: false, saveUninitialized: false })); // Session config
+app.use(
+  cookieSession({
+    name: 'google-auth-session',
+    keys: ['key1', 'key2'],
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
-
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: clientId,
-      clientSecret: clientSecert,
-      callbackURL: 'http://localhost:3000/callback',
-    },
-    async (req, accessToken, refreshToken, profile, done) => {
-      //handle user data recieved from Google
-      console.log('Google Profile:', profile);
-
-      //must require mongoose model in this file
-      const user = await User.findOne({ email: profile.email });
-
-      if (user) {
-        console.log('User Found', user);
-        user.accessToken = accessToken;
-        //finding existing user from DB
-        User.updateOne({ _id: user._id }, { $set: { accessToken: accessToken } })
-          .then(() => {
-            console.log('Access token updated in database');
-            req.session.userId = user._id;
-            return done(null, user);
-          })
-          .catch((err) => console.log('error in passport.use when trying to update the user with the new accesstoken:' + err));
-      } else {
-        // if no user found, adding the user to our DB
-        const newUser = {
-          name: profile.displayName,
-          email: profile.email,
-          accessToken: accessToken,
-        };
-        User.insertOne(newUser)
-          .then((newUserData) => {
-            console.log('New user created: ', newUserData);
-            req.session.userId = newUserData._id;
-            return done(null, newUserData);
-          })
-          .catch((err) => console.log('error in passport.use when trying to insert new user:' + err));
-      }
-    }
-  )
-);
-
-// passport serialization
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((user, done) => done(null, user));
 
 //handles request from frontend
 app.get('/', (req, res) => {
@@ -91,11 +46,11 @@ app.get('/', (req, res) => {
 });
 
 //Authentication routes
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+app.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 // change the routes accordingly
 app.get('/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
-  res.redirect('http://localhost:3000/preferences');
+  res.redirect('/preferences');
 });
 
 // handles request from frontend for API data
