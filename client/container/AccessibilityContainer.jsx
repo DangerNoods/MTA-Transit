@@ -47,6 +47,7 @@ const AccessibilityContainer = () => {
 
     for(let i = 0; i < stationsAcc.length; i++){
         accessiblity.push(
+            
             <AccessibilityComponent
             station={stationsAcc[i].station}
             trainNo={stationsAcc[i].trainNo}

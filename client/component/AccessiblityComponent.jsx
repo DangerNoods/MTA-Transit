@@ -10,19 +10,19 @@ const AccessibilityComponent = (props) => {
           </div>
 
           <div className="trainNo">
-            <p> Trainlines: {props.trainNo}</p>
+            <p className="eachstation"> Trainlines: {props.trainNo}</p>
           </div>
           
           <div className="outageDates">
-            <p>Outage Dates: {props.outageDates}</p>
+            <p className="eachstation">Outage Dates: {props.outageDates}</p>
           </div>
           
           <div className="estimatedReturntoService">
-            <p>Est. Return to Service: {props.estimatedReturntoService}</p>
+            <p className="eachstation">Est. Return to Service: {props.estimatedReturntoService}</p>
           </div>
 
           <div className="ADA">
-            <p> Handicap Accessible: {props.ADA}</p>
+            <p className="eachstation"> Handicap Accessible: {props.ADA}</p>
           </div>
 
         </div>
