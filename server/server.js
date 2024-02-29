@@ -8,7 +8,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const app = express(); //invoke framework
 const PORT = 3000;
-const clientId = process.env.CLIENT_ID;
+const clientId = '201959444032-a940k1h8ha9gq25hsc9j0uvf62ooe9fa.apps.googleusercontent.com';
 const clientSecert = process.env.CLIENT_SECERT;
 
 const apiController = require('./apiController');
