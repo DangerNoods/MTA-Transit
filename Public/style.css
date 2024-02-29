@@ -386,7 +386,7 @@ h1 {
 .mta-line-btn {
   font-size: 28px;
   border: none;
-  color: whitesmoke
+  color: whitesmoke;
   padding: 8px;
   text-align: center;
   width: 56px;
@@ -503,4 +503,23 @@ text-align:center;
 
 .eachstation{
   background-color: whitesmoke;
+}
+
+.showAll-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  
+ 
+}
+
+.eachshowAll-Button {
+  font-size: 14px;
+  border: none;
+  color: black;
+  padding: 8px;
+  text-align: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
 }
