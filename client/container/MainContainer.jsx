@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 
 import NavButtonComponent from '../component/NavButtonComponent.jsx';
+import LoginButton from '../component/LoginButton.jsx';
 import { Link } from 'react-router-dom';
 
 const MainContainer = () => {
@@ -39,6 +40,7 @@ const MainContainer = () => {
   return (
     <div className="SubwayContainer">
       <h1>Subway Alerts</h1>
+
       <div>Subway Lines</div>
       <div id="buttons">
         {navButtonsArr}
