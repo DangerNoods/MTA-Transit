@@ -2,7 +2,15 @@
 // import SubwayLineComponent from './SubwayLineComponent.jsx';
 // import {Link} from 'react-router-dom'
 
-// const LineButtonComponent = ({ line, subwaylines }) => {
+const LineButtonComponent = ({ line, currTrainGroup }) => {
+  return (
+    <>
+      <button className={'mta-line-btn'} id={'group-' + currTrainGroup}>
+        {line}
+      </button>
+    </>
+  );
+};
 
 //   const specLine = [];
 
